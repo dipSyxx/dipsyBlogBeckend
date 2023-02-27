@@ -17,20 +17,17 @@ import handleValidationsErrors from "./utils/handleValidationsErrors.js";
 // controllers
 import { UserControllers, PostControllers } from "./Controllers/index.js";
 
-//! (1)
-const app = express();
-
 //! (8)
 //! Підключення MongoDB
-const connectDB = async () => {
-  try {
-    const conn = await mongoose
-      .connect(process.env.MONGODB_URI)
-      .then(() => console.log("DB OK"));
-  } catch (error) {
-    console.log("DB doesnt connected(error)", error);
-  }
-};
+mongoose
+  .connect(
+    "mongodb+srv://admin:admin@cluster0.f7antna.mongodb.net/blog?retryWrites=true&w=majority"
+  )
+  .then(() => console.log("DB OK"))
+  .catch((err) => console.log("DB doesnt connected(error)", err));
+
+//! (1)
+const app = express();
 
 //! Створення сховища від MULTER (картинки)
 const storage = multer.diskStorage({
@@ -123,12 +120,10 @@ app.patch(
 
 //! (3)
 //! Localhost для запуску сайта
-connectDB().then(() => {
-  app.listen(process.env.PORT || 4444, (err) => {
-    if (err) {
-      return console.log(err);
-    }
+app.listen(process.env.PORT || 4444, (err) => {
+  if (err) {
+    return console.log(err);
+  }
 
-    console.log("Server OK");
-  });
+  console.log("Server OK");
 });
