@@ -32,10 +32,6 @@ const connectDB = async () => {
   }
 };
 
-app.all("*", (req, res) => {
-  res.json({ "every thing": "is awesome" });
-});
-
 //! Створення сховища від MULTER (картинки)
 const storage = multer.diskStorage({
   // шляха збереження картинок
