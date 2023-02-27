@@ -20,9 +20,7 @@ import { UserControllers, PostControllers } from "./Controllers/index.js";
 //! (8)
 //! Підключення MongoDB
 mongoose
-  .connect(
-    "mongodb+srv://admin:admin@cluster0.f7antna.mongodb.net/blog?retryWrites=true&w=majority"
-  )
+  .connect(process.env.MONGODB_URI)
   .then(() => console.log("DB OK"))
   .catch((err) => console.log("DB doesnt connected(error)", err));
 
@@ -120,7 +118,7 @@ app.patch(
 
 //! (3)
 //! Localhost для запуску сайта
-app.listen(4444, (err) => {
+app.listen(process.env.PORT || 4444, (err) => {
   if (err) {
     return console.log(err);
   }
